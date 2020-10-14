@@ -47,12 +47,11 @@ function getExpensesMonth() {
         else if (isNumber(cost)){
             sum += cost;
         }
-        console.log(cost);
     }
     console.log(exspenses);
     return sum;
 
-}
+}       // как это сделать проще???!!
 
 let expensesAmount = getExpensesMonth();
 
