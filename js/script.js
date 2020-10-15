@@ -59,8 +59,9 @@ const budgetDay = Math.floor(accumulatedMonth / 30);
 
 function getTargetMonth() {
     const target = Math.ceil(mission / accumulatedMonth);
-    if (target < 0) return console.log("Цель не будет достигнута");
-    else return target;
+    if (target < 0) console.log("Цель не будет достигнута");
+    else console.log("Цель не будет достигнута" , target);
+    return target;
 }
 
 const getStatusIncome = function () {
@@ -77,6 +78,6 @@ showTypeOf(deposit);
 
 console.log("Расходы за месяц: ", expensesAmount);
 console.log(addExpenses.toLowerCase().split(','));
-console.log("Цель будет достигнута за: ", getTargetMonth());
+getTargetMonth();
 console.log('Бюджет на день: ', budgetDay);
 getStatusIncome();
