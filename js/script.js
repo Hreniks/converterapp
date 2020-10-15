@@ -32,26 +32,21 @@ const showTypeOf = function (data) {
 function getExpensesMonth() {
     let sum = 0;
     let cost;
+    
 
     for (let i = 0; i < 2; i++) {
         exspenses[i] = prompt("Введите обязательную статью расходов");
-        cost = +prompt("Во сколько это обойдется?");
-        if (!isNumber(cost) || cost === 0 || cost === '') {
-            while (!isNumber(cost)) {
-                cost = +prompt("Во сколько это обойдется?");
-            }
-            if (isNumber(cost)){
-                sum += cost;
-            }
+        do {
+            cost = +prompt('Во сколько это обойдется?');
         }
-        else if (isNumber(cost)){
-            sum += cost;
-        }
+        while(!isNumber(cost) || cost === 0);
+    
+        sum+=cost;
     }
     console.log(exspenses);
     return sum;
 
-}       // как это сделать проще???!!
+} 
 
 let expensesAmount = getExpensesMonth();
 
