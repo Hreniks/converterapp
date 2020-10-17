@@ -3,18 +3,7 @@ let isNumber = function (n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
 };
 
-let money = 0;
-const income = "Фриланс";
-const addExpenses = prompt("Перечислите возможные расходы за рассчитываемый период через запятую", "интернет, такси, коммуналка");
-const deposit = confirm("Есть ли у вас депозит в банке?");
-const mission = 1000000;
-const period = 3;
-let exspenses1;
-let exspenses2;
-let exspenses = [];
-// const amount1 = prompt("Во сколько это обойдется?");
-// const amount2 = prompt("Во сколько это обойдется?");
-
+let money;
 let start = function () {
     do {
         money = prompt("Ваш месячный доход?");
@@ -23,11 +12,33 @@ let start = function () {
 
 };
 
+
+const period = 3;
+let exspenses1;
+let exspenses2;
+let exspenses = [];
+// const amount1 = prompt("Во сколько это обойдется?");
+// const amount2 = prompt("Во сколько это обойдется?");
+
+
+
 start();
 
-const showTypeOf = function (data) {
-    console.log(data, typeof (data));
-};
+let appData = {
+    income: {},
+    addIncome: [],
+    expenses: {},
+    addExpenses: [],
+    deposit: false,
+    misson: 50000,
+    period: 3,
+    asking: function(){
+        let addExpenses = prompt("Перечислите возможные расходы за рассчитываемый период через запятую", "интернет, такси, коммуналка");
+        appData.addExpenses = addExpenses.toLowerCase().split(',');
+        appData.deposit = confirm("Есть ли у вас депозит в банке?");
+
+    }
+}
 
 function getExpensesMonth() {
     let sum = 0;
@@ -43,7 +54,6 @@ function getExpensesMonth() {
     
         sum+=cost;
     }
-    console.log(exspenses);
     return sum;
 
 } 
@@ -60,7 +70,7 @@ const budgetDay = Math.floor(accumulatedMonth / 30);
 function getTargetMonth() {
     const target = Math.ceil(mission / accumulatedMonth);
     if (target < 0) console.log("Цель не будет достигнута");
-    else console.log("Цель не будет достигнута" , target);
+    else console.log("Цель будет достигнута pf " , target);
     return target;
 }
 
@@ -70,14 +80,10 @@ const getStatusIncome = function () {
     else if (budgetDay < 600 && budgetDay >= 0) { return console.log("К сожалению у вас уровень дохода ниже среднего"); }
     else if (budgetDay < 0) { return console.log("Что то пошло не так"); }
     else { return console.log("error"); }
-};
-
-showTypeOf(money);
-showTypeOf(income);
-showTypeOf(deposit);
+}; 
 
 console.log("Расходы за месяц: ", expensesAmount);
-console.log(addExpenses.toLowerCase().split(','));
+
 getTargetMonth();
 console.log('Бюджет на день: ', budgetDay);
 getStatusIncome();
