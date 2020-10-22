@@ -176,5 +176,62 @@ const depositPercent = document.querySelector('.deposit-percent');
 const targetAmount = document.querySelector('.target-amount');
 const periodSelect = document.querySelector('.period-select');
 
+const books = document.querySelector('.books');
+const bookElement = document.querySelectorAll('.book');
+console.log('books', bookElement);
+
+bookElement[0].before(bookElement[1]);
+books.append(bookElement[2]);
+bookElement[4].after(bookElement[3]);
+
+document.body.style.backgroundImage = 'url(./image/you-dont-know-js.jpg)';
+
+const titles = document.getElementsByTagName('a');
+console.log('titles: ', titles);
+titles[2].textContent = 'Книга 3. this и Прототипы Объектов';
+
+document.querySelector('.adv').remove();
+
+const item = bookElement[0].getElementsByTagName('li');
+console.log('items: ', item);
+
+const book2 = bookElement[0];
+const book5 = bookElement[5];
+const book6 = bookElement[2];
+const book2Chapter1 = book2.getElementsByTagName('li')[3];
+const book2Chapter2 = book2.getElementsByTagName('li')[6];
+const book2Chapter3 = book2.getElementsByTagName('li')[8];
+const book2Chapter4 = book2.getElementsByTagName('li')[4];
+const book2Chapter5 = book2.getElementsByTagName('li')[5];
+const attC = book2.getElementsByTagName('li')[2];
+const attD = book2.getElementsByTagName('li')[10];
+
+book2Chapter1.after(book2Chapter2);
+book2Chapter2.after(book2Chapter3);
+book2Chapter3.after(book2Chapter4);
+book2Chapter4.after(book2Chapter5);
+attD.before(attC);
+
+console.log(book5.getElementsByTagName('li'));
 
 
+const book5Chapter1 = book5.getElementsByTagName('li')[9];
+const book5Chapter2 = book5.getElementsByTagName('li')[3];
+const book5Chapter3 = book5.getElementsByTagName('li')[4];
+const book5Chapter4 = book5.getElementsByTagName('li')[2];
+const book5Chapter5 = book5.getElementsByTagName('li')[6];
+const book5Chapter6 = book5.getElementsByTagName('li')[7];
+const book5AttA = book5.getElementsByTagName('li')[5];
+const book5AttB = book5.getElementsByTagName('li')[3];
+const book5AttC = book5.getElementsByTagName('li')[10];
+
+book5Chapter2.after(book5Chapter3);
+book5Chapter5.after(book5Chapter4);
+book5Chapter2.before(book5Chapter1);
+book5AttA.before(book5AttB);
+book5Chapter6.after(book5AttA);
+book5Chapter1.after(book5Chapter2);
+book5Chapter4.after(book5Chapter5);
+
+
+book6.getElementsByTagName('li')[8].innerHTML += '<li>Глава 8: За пределами ES6</li>';
