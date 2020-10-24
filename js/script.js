@@ -191,7 +191,7 @@ let appData = {
 // start.addEventListener('click',function(){
    
 // });
-start.addEventListener('click',function(){
+start.addEventListener('mouseup',function(){
     if (salaryAmount.value === ''){ 
         alert('Введите месячный доход!');
         start.setAttribute('disabled', 'disabled');
