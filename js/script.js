@@ -23,6 +23,7 @@ const salaryAmount = document.querySelector('.salary-amount');
 const incomeTitle = document.querySelector('.income-title');
 const incomeAmount = document.querySelector('.income-amount');
 const expensesTitle = document.querySelector('input.expenses-title');
+const expensesAmount = document.querySelector('input.expenses-amount');
 let expensesItems = document.querySelectorAll('.expenses-items');
 const additionalExpensesItem = document.querySelector('.additional_expenses-item');
 const depositAmount = document.querySelector('.deposit-amount');
@@ -97,6 +98,8 @@ let appData = {
     },
     addExpensesBlock: function(){
         let cloneExpensesItem = expensesItems[0].cloneNode(true);
+        cloneExpensesItem.querySelector('.expenses-title').value = '';
+        cloneExpensesItem.querySelector('.expenses-amount').value = '';
         expensesItems[0].parentNode.insertBefore(cloneExpensesItem, addExpensesBtn);
         expensesItems = document.querySelectorAll('.expenses-items');
         if (expensesItems.length === 3){
@@ -105,6 +108,8 @@ let appData = {
     },
     addIncomeBlock: function(){
         let cloneIncomeItem = incomeItems[0].cloneNode(true);
+        cloneIncomeItem.querySelector('.income-title').value = '';
+        cloneIncomeItem.querySelector('.income-amount').value = '';
         incomeItems[0].parentNode.insertBefore(cloneIncomeItem,addIncomeBtn);
         incomeItems = document.querySelectorAll('.income-items');
         if (incomeItems.length === 3){
