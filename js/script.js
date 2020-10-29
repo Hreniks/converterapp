@@ -270,7 +270,7 @@ AppData.prototype.reset = function () {
         });
     };
 
-   
+   appData.eventListeners();
     
     console.log(appData);
 
