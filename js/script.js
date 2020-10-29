@@ -109,7 +109,7 @@ AppData.prototype.reset = function () {
     addIncomeBtn.style.display = 'block';
     addExpensesBtn.style.display = 'block';
     document.getElementById('deposit-check').checked = false;
-
+    periodSelect.removeAttribute('disabled');
 
     this.income = {};
     this.addIncome = [];
@@ -253,6 +253,7 @@ AppData.prototype.reset = function () {
                 addExpensesBtn.setAttribute('disabled','disabled');
         
                 resetBtn.style.display = 'block';
+                periodSelect.setAttribute('disabled','disabled');
                 resetBtn.addEventListener('click', function(){
                    appData.reset();
                 });
