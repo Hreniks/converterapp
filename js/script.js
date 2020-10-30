@@ -1,5 +1,5 @@
 "use strict";
-let isNumber = function (n) {
+let isNumber = (n) => {
     return !isNaN(parseFloat(n)) && isFinite(n);
 };
 
@@ -69,12 +69,12 @@ class AppData {
         resetBtn.style.display = 'none';
         start.hidden = false;
 
-        document.querySelectorAll('input').forEach(function (item) {
+        document.querySelectorAll('input').forEach((item) => {
             item.value = '';
             periodSelect.value = 1;
         });
 
-        document.querySelectorAll('.result-total').forEach(function (item) {
+        document.querySelectorAll('.result-total').forEach((item) => {
             item.value = 0;
             if (item === additionalIncomeValue || item === additionalExpensesValue) {
                 item.value = 'Наименования';
@@ -171,7 +171,6 @@ class AppData {
         if (incomeItems.length === 3) {
             addIncomeBtn.style.display = 'none';
         }
-        console.log('addIncomeBlock', incomeItems);
     }
     getExpenses() {
         expensesItems.forEach((item) => {
@@ -224,18 +223,18 @@ class AppData {
     }
 
     eventListeners() {
-        start.addEventListener('mouseup', function () {
+        start.addEventListener('mouseup',() => {
             if (salaryAmount.value === '') {
                 alert('Введите месячный доход!');
                 start.setAttribute('disabled', 'disabled');
-                salaryAmount.addEventListener('input', function () {
+                salaryAmount.addEventListener('input',() => {
                     start.removeAttribute('disabled');
                 });
             }
             else {
                 const inputsTypeText = document.querySelectorAll('input[type=text]');
 
-                inputsTypeText.forEach(function (item) {
+                inputsTypeText.forEach((item) => {
                     item.setAttribute('disabled', 'disabled');
 
                 });
@@ -262,7 +261,6 @@ class AppData {
 }
 
 const appData = new AppData();
-console.log(appData);
 appData.eventListeners();
 
 
