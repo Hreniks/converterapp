@@ -46,7 +46,6 @@ function countDays(){
 
 
 
-<<<<<<< HEAD
 document.querySelector('.welcome').textContent = out(hours);
 document.querySelector('.today').textContent = `Сегодня: ${getWeekDay(today)}`;
 document.querySelector('.timer').textContent = `Текущее время: ${getTime()}`;
@@ -58,9 +57,3 @@ document.querySelector('.count').textContent = `До нового года ос�
     }
     timer();
 });
-=======
-alert(`${out(hours)}
-Сегодня: ${getWeekDay(today)}
-Текущее время: ${getTime()}
-До нового года осталось: ${countDays()} дней`);
->>>>>>> 26356e2bb2d2fcbf3e62d6c852e11f40c812f835
