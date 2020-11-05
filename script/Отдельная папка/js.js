@@ -53,6 +53,13 @@ function ampm(hours){
     else return 'PM';
 }
 
+function getTime(){
+    
+return date.toLocaleString('en-US',{hour: 'numeric', hour12: true, minute: 'numeric', second: 'numeric'});
+}
+
+
+
 function countDays(){
     return Math.floor((newYear - date) / 86400000);
 }
@@ -61,5 +68,5 @@ function countDays(){
 
 alert(`${out(hours)}
 Сегодня: ${getWeekDay(today)}
-Текущее время: ${hours}:${minutes}:${seconds} ${ampm(hours)}
+Текущее время: ${getTime()}
 До нового года осталось: ${countDays()} дней`);

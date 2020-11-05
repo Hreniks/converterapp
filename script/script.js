@@ -27,7 +27,6 @@ window.addEventListener('DOMContentLoaded', function(){
         timerHours.textContent = timer.hours < 10 ? '0' + timer.hours : timer.hours;
         timerMinutes.textContent = timer.minutes < 10 ? '0' + timer.minutes : timer.minutes;
         timerSeconds.textContent = timer.seconds < 10 ? '0' + timer.seconds : timer.seconds;
-        console.log(timer.timeRemaining);
         }
         else {
             clearInterval(updateClock);
