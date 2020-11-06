@@ -40,6 +40,6 @@ window.addEventListener('DOMContentLoaded', function(){
     setInterval(updateClock,1000);
 }
 
-    countTimer('04 november 2020');
+    countTimer('06 november 2020');
     //setInterval(countTimer,1000,'06 november 2020');
 });
