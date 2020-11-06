@@ -1,3 +1,4 @@
+window.addEventListener('DOMContentLoaded', function(){
 "use strict";
 let date = new Date();
 let seconds = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
@@ -13,27 +14,6 @@ console.log('hours', hours);
 console.log('today', today);
 console.log('time: ', time);
 console.log('date', date);
-//switch (hours){
-//     case (hours > 5 && hours <= 12):
-//         document.body.textContent = 'Доброе утро';
-//         break;
-
-//     case (hours > 12 && hours <= 16):
-//         document.body.textContent = 'Добрый день';
-//         break;
-
-//     case (hours > 16 && hours <= 24):
-//         document.body.textContent = 'Добрый вечер';
-//     break;
-
-//     case (hours > 0 && hours <= 5 ):
-//         document.body.textContent = 'Доброй ночи';
-//     break;
-    
-//     default:
-//         document.body.textContent = 'Не то';
-
-// }
 
 function out(hours){
     
@@ -54,10 +34,11 @@ function ampm(hours){
 }
 
 function getTime(){
-    
+setInterval(getTime,10);
+document.querySelector('.timer').textContent = `Текущее время: ${getTime()}`;
 return date.toLocaleString('en-US',{hour: 'numeric', hour12: true, minute: 'numeric', second: 'numeric'});
 }
-
+getTime();
 
 
 function countDays(){
@@ -66,7 +47,8 @@ function countDays(){
 
 
 
-alert(`${out(hours)}
-Сегодня: ${getWeekDay(today)}
-Текущее время: ${getTime()}
-До нового года осталось: ${countDays()} дней`);
+document.querySelector('.welcome').textContent = out(hours);
+document.querySelector('.today').textContent = `Сегодня: ${getWeekDay(today)}`;
+
+// До нового года осталось: ${countDays()} дней`;
+});
