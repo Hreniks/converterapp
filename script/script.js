@@ -80,7 +80,6 @@ window.addEventListener('DOMContentLoaded', function () {
     const ScrollLinks = () => {
         const menu = document.querySelector('menu');
         const smoothLinks = menu.querySelectorAll('a[href^="#"]');
-        console.log(smoothLinks);
         for (let i = 1; i < smoothLinks.length; i++) {
            
             smoothLinks[i].addEventListener('click',(e)=>{
@@ -120,33 +119,42 @@ window.addEventListener('DOMContentLoaded', function () {
 
         popupBtn.forEach((elem) => {
             elem.addEventListener('click', () => {
-                popup.style.display = 'block';
-                showPopUp();
+                //popup.style.display = 'block';
+                showPopup();
 
             });
         });
 
+        
 
 
         popUpClose.addEventListener('click', () => {
             popup.style.display = 'none';
+            
         });
 
-        function showPopUp() {
-            let popupContent = document.querySelector('.popup-content');
-            let pos = 0;
-            let id = setInterval(frame,10);
-            function frame(){
-                if (pos ===((parseInt(document.body.clientWidth) / 2) - 100) || document.documentElement.clientWidth <= 768){
-                    clearInterval(id);
+        const showPopup = () => {
+            const popup = document.querySelector('.popup');
+            const popupContent = document.querySelector('.popup-content');
+            popup.style.display = 'block'; // показать попап
+            if (screen.innerWidth > 768) { // если ширина экрана больше заданного числа, то запустить анимацию
+              let start = Date.now(); // получить стартовое время анимации (в момент клика)
+              let timer = setInterval(() => {
+                let timePassed = Date.now() - start; // запуск таймера, отнять от текущего реального времени стартовое время, после клика
+                if (timePassed >= 800) {
+                  clearInterval(timer); // если время достигло определенного числа удалить setInterval 
+                  return;
                 }
-                else {
-                    pos+=1;
-                    popupContent.style.left = pos + 'px';
-                }
+                draw(timePassed); // отрисовка анимации 
+              });
+              let draw = (timePassed) => {
+                let wContent = +getComputedStyle(popupContent).width.split('px')[0]; // получить стили попап контента (блок с самой формой, а не вся обёртка, с попап )
+                wContent = -wContent / 2 + 50 + 'px'; // данные для центрирования по горизонтали
+                popupContent.style.left = timePassed / 16 + '%'; // центрирование по горизонтали
+                popupContent.style.marginLeft = wContent; // центрирование по горизонтали
+              };
             }
-
-        }
+          };
 
         // document.querySelector('.popup-content')
 
