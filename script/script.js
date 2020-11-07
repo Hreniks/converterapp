@@ -133,12 +133,18 @@ window.addEventListener('DOMContentLoaded', function () {
         });
 
         function showPopUp() {
-            let start = Date.now();
-            let timer = setInterval(function () {
-                let timePassed = Date.now() - start;
-                document.querySelector('.popup-content').style.left = timePassed + 'px';
-                if (timePassed > 800 || document.documentElement.clientWidth < 768) clearInterval(timer);
-            }, 20);
+            let popupContent = document.querySelector('.popup-content');
+            let pos = 0;
+            let id = setInterval(frame,10);
+            function frame(){
+                if (pos ===((parseInt(document.body.clientWidth) / 2) - 100) || document.documentElement.clientWidth <= 768){
+                    clearInterval(id);
+                }
+                else {
+                    pos+=1;
+                    popupContent.style.left = pos + 'px';
+                }
+            }
 
         }
 
