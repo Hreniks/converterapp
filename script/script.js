@@ -65,7 +65,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
         //btnMenu.addEventListener('click', handlerMenu);
         document.body.addEventListener('click', (event) =>{
-            console.log(event.target);
+         
             
             if (event.target.closest('.menu') || event.target.closest('menu a')){
                handlerMenu();
