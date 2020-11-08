@@ -40,7 +40,7 @@ window.addEventListener('DOMContentLoaded', function () {
         setInterval(updateClock, 1000);
     }
 
-    countTimer('08 november 2020');
+    countTimer('09 november 2020');
     //setInterval(countTimer,1000,'06 november 2020');
 
 
@@ -70,7 +70,7 @@ window.addEventListener('DOMContentLoaded', function () {
             if (event.target.closest('.menu') || event.target.closest('menu a')){
                handlerMenu();
             }
-            else if (!event.target.closest('.menu') && menu.classList.contains('active-menu')){
+            else if (!event.target.closest('menu') && menu.classList.contains('active-menu')){
                 handlerMenu(); 
             }
 
