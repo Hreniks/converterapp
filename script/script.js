@@ -40,7 +40,7 @@ window.addEventListener('DOMContentLoaded', () => {
         setInterval(updateClock, 1000);
     }
 
-    countTimer('10 november 2020');
+    countTimer('11 november 2020');
     //setInterval(countTimer,1000,'06 november 2020');
 
 
@@ -320,6 +320,43 @@ window.addEventListener('DOMContentLoaded', () => {
     slider();
 
 
+    const commandImg = () =>{
+        const commandBlock = document.getElementById('command');
+        let oldPicture;
 
 
+        commandBlock.addEventListener('mouseover',(e) => { 
+            let target = e.target;
+
+            if (target.classList.contains('command__photo')){
+                oldPicture = target.src;
+                target.src = target.dataset.img;
+            }
+        } );
+        
+        
+        commandBlock.addEventListener('mouseout',(e) => {
+            let target = e.target;
+
+            if (target.classList.contains('command__photo')){
+                target.src = oldPicture;
+            }
+        });
+    };
+
+    commandImg();
+
+
+
+    const validationCalc = () =>{
+        const calcBlock = document.querySelector('.calc');
+
+        calcBlock.addEventListener('input', (e) =>{    
+            if (e.target.classList.contains('calc-item') && !e.target.classList.contains('calc-type')){
+                e.target.value = e.target.value.replace(/\D/g, '');
+            }
+        });
+    };
+
+    validationCalc();
 });
