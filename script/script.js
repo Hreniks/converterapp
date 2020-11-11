@@ -399,8 +399,8 @@ window.addEventListener('DOMContentLoaded', () => {
         };
 
         const calcAnim = () => {
-            const time = 2000;
-            const step = 20;
+            const time = 3000;
+            const step = 10;
 
             let n = 0;
             let t = Math.round(time / (total / step));
@@ -410,7 +410,7 @@ window.addEventListener('DOMContentLoaded', () => {
                     clearInterval(interval);
                 }
                 else{
-                    totalValue.innerHTML = n + 20;
+                    totalValue.innerHTML = n + 10;
                     
                 }
             }, t);
@@ -421,9 +421,11 @@ window.addEventListener('DOMContentLoaded', () => {
             const target = e.target;
             
             if (target === calcType || target === calcSquare || target === calcDay || target === calcCount){
+                
                 countSum();
+                
                 if (total !== 0) calcAnim();
-            }
+            }   
         });
 
     };
