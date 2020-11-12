@@ -392,7 +392,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
             if (typeValue && squareValue){
-                total = price * typeValue * squareValue * countValue * dayValue;
+                total = Math.ceil(price * typeValue * squareValue * countValue * dayValue);
             }
 
            // totalValue.textContent = total;
@@ -424,7 +424,9 @@ window.addEventListener('DOMContentLoaded', () => {
                 
                 countSum();
                 
-                if (total !== 0) calcAnim();
+                if (total !== 0 && calcType.value && calcSquare.value && calcDay.value && calcCount.value){
+                    calcAnim();
+                } 
             }   
         });
 
