@@ -509,9 +509,7 @@ window.addEventListener('DOMContentLoaded', () => {
             }
         });
        };
-       formValid('form1');
-       formValid('form2');
-       formValid('form3');
+       
 
 
         form2.addEventListener('submit', (e) => {
@@ -570,6 +568,10 @@ window.addEventListener('DOMContentLoaded', () => {
                 item.value = '';
             });
         });
+
+       formValid('form1');
+       formValid('form2');
+       formValid('form3');
 
         const postData = (body, outputData,errorData) => {
             const request = new XMLHttpRequest();
