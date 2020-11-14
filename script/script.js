@@ -207,10 +207,10 @@ window.addEventListener('DOMContentLoaded', () => {
     //добавить точки
 
 
-    const addDots = () =>{
+    const addDots = () => {
         const slidesCount = document.querySelectorAll('.portfolio-item').length;
 
-        for (let i = 0; i < slidesCount; i++){
+        for (let i = 0; i < slidesCount; i++) {
             let dot = document.createElement('li');
             dot.classList.add('dot');
             document.querySelector('.portfolio-dots').append(dot);
@@ -223,7 +223,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     //slider
 
-    const slider = () =>{
+    const slider = () => {
         const slide = document.querySelectorAll('.portfolio-item');
         const btn = document.querySelectorAll('.portfolio-btn');
         const dot = document.querySelectorAll('.dot');
@@ -232,34 +232,34 @@ window.addEventListener('DOMContentLoaded', () => {
         let currentSlide = 0;
         let interval;
 
-        const prevSlide = (elem,index,strClass) =>{
+        const prevSlide = (elem, index, strClass) => {
             elem[index].classList.remove(strClass);
         };
 
-        const nextSlide = (elem,index,strClass) =>{
+        const nextSlide = (elem, index, strClass) => {
             elem[index].classList.add(strClass);
         };
 
-        
-        const autoPlaySlide = () =>{
 
-            prevSlide(slide,currentSlide,'portfolio-item-active');
-            prevSlide(dot,currentSlide,'dot-active');
+        const autoPlaySlide = () => {
+
+            prevSlide(slide, currentSlide, 'portfolio-item-active');
+            prevSlide(dot, currentSlide, 'dot-active');
             currentSlide++;
-            if (currentSlide >= slide.length){
+            if (currentSlide >= slide.length) {
                 currentSlide = 0;
             }
-            nextSlide(slide,currentSlide,'portfolio-item-active');
-            nextSlide(dot,currentSlide,'dot-active');
+            nextSlide(slide, currentSlide, 'portfolio-item-active');
+            nextSlide(dot, currentSlide, 'dot-active');
         };
 
-        const startSlide = (time = 3000) =>{
-            interval = setInterval(autoPlaySlide,time);
+        const startSlide = (time = 3000) => {
+            interval = setInterval(autoPlaySlide, time);
         };
 
-        
 
-        const stopSlide = () =>{
+
+        const stopSlide = () => {
             clearInterval(interval);
         };
 
@@ -269,47 +269,47 @@ window.addEventListener('DOMContentLoaded', () => {
             let target = event.target;
             if (!target.matches('.portfolio-btn, .dot')) return;
 
-            prevSlide(slide,currentSlide,'portfolio-item-active');
-            prevSlide(dot,currentSlide,'dot-active');
+            prevSlide(slide, currentSlide, 'portfolio-item-active');
+            prevSlide(dot, currentSlide, 'dot-active');
 
-            if (target.matches('#arrow-right')){
+            if (target.matches('#arrow-right')) {
                 currentSlide++;
             }
-            else if (target.matches('#arrow-left')){
+            else if (target.matches('#arrow-left')) {
                 currentSlide--;
             }
-            else if (target.matches('.dot')){
-                dot.forEach((elem,index)=>{
-                    if (elem === target){
+            else if (target.matches('.dot')) {
+                dot.forEach((elem, index) => {
+                    if (elem === target) {
                         currentSlide = index;
                     }
                 });
             }
 
-            if (currentSlide >= slide.length){
+            if (currentSlide >= slide.length) {
                 currentSlide = 0;
             }
 
-            if (currentSlide < 0){
+            if (currentSlide < 0) {
                 currentSlide = slide.length - 1;
             }
 
-            nextSlide(slide,currentSlide,'portfolio-item-active');
-            nextSlide(dot,currentSlide,'dot-active');
+            nextSlide(slide, currentSlide, 'portfolio-item-active');
+            nextSlide(dot, currentSlide, 'dot-active');
 
 
         });
 
 
         slider.addEventListener('mouseover', (event) => {
-            if (event.target.matches('.portfolio-btn') || event.target.matches('.dot')){
+            if (event.target.matches('.portfolio-btn') || event.target.matches('.dot')) {
                 stopSlide();
             }
         });
 
 
         slider.addEventListener('mouseout', (event) => {
-            if (event.target.matches('.portfolio-btn') || event.target.matches('.dot')){
+            if (event.target.matches('.portfolio-btn') || event.target.matches('.dot')) {
                 startSlide();
             }
         });
@@ -320,25 +320,25 @@ window.addEventListener('DOMContentLoaded', () => {
     slider();
 
 
-    const commandImg = () =>{
+    const commandImg = () => {
         const commandBlock = document.getElementById('command');
         let oldPicture;
 
 
-        commandBlock.addEventListener('mouseover',(e) => { 
+        commandBlock.addEventListener('mouseover', (e) => {
             let target = e.target;
 
-            if (target.classList.contains('command__photo')){
+            if (target.classList.contains('command__photo')) {
                 oldPicture = target.src;
                 target.src = target.dataset.img;
             }
-        } );
-        
-        
-        commandBlock.addEventListener('mouseout',(e) => {
+        });
+
+
+        commandBlock.addEventListener('mouseout', (e) => {
             let target = e.target;
 
-            if (target.classList.contains('command__photo')){
+            if (target.classList.contains('command__photo')) {
                 target.src = oldPicture;
             }
         });
@@ -348,11 +348,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 
-    const validationCalc = () =>{
+    const validationCalc = () => {
         const calcBlock = document.querySelector('.calc');
 
-        calcBlock.addEventListener('input', (e) =>{    
-            if (e.target.classList.contains('calc-item') && !e.target.classList.contains('calc-type')){
+        calcBlock.addEventListener('input', (e) => {
+            if (e.target.classList.contains('calc-item') && !e.target.classList.contains('calc-type')) {
                 e.target.value = e.target.value.replace(/\D/g, '');
             }
         });
@@ -364,39 +364,39 @@ window.addEventListener('DOMContentLoaded', () => {
     //калькулятор
     const Calc = (price = 100) => {
 
-    const   calcBlock = document.querySelector('.calc-block'),
+        const calcBlock = document.querySelector('.calc-block'),
             calcType = document.querySelector('.calc-type'),
             calcSquare = document.querySelector('.calc-square'),
             calcDay = document.querySelector('.calc-day'),
             totalValue = document.getElementById('total'),
             calcCount = document.querySelector('.calc-count');
-            let total = 0;
-            let interval;
+        let total = 0;
+        let interval;
 
-        const countSum = () =>{
-            
+        const countSum = () => {
+
             let countValue = 1;
             let dayValue = 1;
             const typeValue = calcType.options[calcType.selectedIndex].value;
-            const squareValue = +calcSquare.value;    
-           
+            const squareValue = +calcSquare.value;
 
-            if (calcCount.value > 1){
+
+            if (calcCount.value > 1) {
                 countValue += (calcCount.value - 1) / 10;
             }
 
-            if (calcDay && calcDay.value < 5){
+            if (calcDay && calcDay.value < 5) {
                 dayValue *= 2;
-            }else if (calcDay && calcDay.value < 10){
+            } else if (calcDay && calcDay.value < 10) {
                 dayValue *= 1.5;
             }
 
 
-            if (typeValue && squareValue){
+            if (typeValue && squareValue) {
                 total = Math.ceil(price * typeValue * squareValue * countValue * dayValue);
             }
 
-           // totalValue.textContent = total;
+            // totalValue.textContent = total;
         };
 
         const calcAnim = () => {
@@ -407,28 +407,28 @@ window.addEventListener('DOMContentLoaded', () => {
             let t = Math.round(time / (total / step));
             interval = setInterval(() => {
                 n += step;
-                if (n === total){
+                if (n === total) {
                     clearInterval(interval);
                 }
-                else{
+                else {
                     totalValue.innerHTML = n + 10;
-                    
+
                 }
             }, t);
         };
-        
 
-        calcBlock.addEventListener('change',(e) => {
+
+        calcBlock.addEventListener('change', (e) => {
             const target = e.target;
-            
-            if (target.matches('select') || target.matches('input')){
+
+            if (target.matches('select') || target.matches('input')) {
                 countSum();
-                
+
                 clearInterval(interval);
-                if (total !== 0){ 
+                if (total !== 0) {
                     calcAnim();
                 }
-            }  
+            }
         });
 
     };
@@ -441,8 +441,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
     const sendForm = () => {
         const errorMessage = `Что то пошло не так...`,
-        loadMessage = `Загрузка...`,
-        successMessage = 'Спасибо!, Мы скоро с вами свяжемся!';
+            loadMessage = `Загрузка...`,
+            successMessage = 'Спасибо!, Мы скоро с вами свяжемся!';
 
         const form1 = document.getElementById('form1');
         const form2 = document.getElementById('form2');
@@ -453,22 +453,62 @@ window.addEventListener('DOMContentLoaded', () => {
 
         const statusMessage = document.createElement('div');
         //statusMessage.textContent = 'текст';
-        statusMessage.style.cssText = `font-size: 2rem`;
-        statusMessage.style.cssText = `color: #ffff`;
+        //statusMessage.style.cssText = `font-size: 2rem`;
+        //statusMessage.style.cssText = `color: #ffff`;
+
+
+
+
+        function addAnimation(body) {
+            let dynamicStyles = null;
+            if (!dynamicStyles) {
+                dynamicStyles = document.createElement('style');
+                dynamicStyles.type = 'text/css';
+                form1.appendChild(dynamicStyles);
+            }
+
+            dynamicStyles.sheet.insertRule(body, dynamicStyles.length);
+        }
+
+        addAnimation(`
+    @keyframes sk-rotating-plane {
+    0% {
+      transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+    }
+    50% {
+      transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+    }
+    100% {
+      transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+    }
+  }
+    `);
+
+
 
         form1.addEventListener('submit', (event) => {
             event.preventDefault();
+
+            statusMessage.classList = 'sk-rotating-plane';
+            statusMessage.style = `
+            width: 6em;
+            height: 6em;
+            margin: auto;
+            background-color: #337ab7;
+            -webkit-animation: sk-rotating-plane 1.2s infinite ease-in-out;
+            animation: sk-rotating-plane 1.2s infinite ease-in-out;
+        `;
             form1.appendChild(statusMessage);
-            statusMessage.textContent = loadMessage;
-            
             const form1Data = new FormData(form1);
             let body = {};
-            form1Data.forEach((val,key) =>{
+            form1Data.forEach((val, key) => {
                 body[key] = val;
             });
             postData(body, () => {
+                document.querySelector('style').remove();
+                statusMessage.removeAttribute('style');
                 statusMessage.textContent = successMessage;
-            }, (error) =>{
+            }, (error) => {
                 statusMessage.textContent = errorMessage;
                 console.log(error);
             });
@@ -485,7 +525,7 @@ window.addEventListener('DOMContentLoaded', () => {
             //     statusMessage.textContent = `Введите телефон!`;
             // }
 
-          
+
 
             form1Inputs.forEach((item) => {
                 console.log(item);
@@ -494,22 +534,22 @@ window.addEventListener('DOMContentLoaded', () => {
 
         });
 
-       const formValid = (name) => {
-           let form = document.getElementById(name);
-        form.addEventListener('input', (e) => {
-            if (e.target.classList.contains('form-phone')){
-                e.target.value = e.target.value.replace(/[^+0-9]/ig, '');
-            }
-            if (e.target.classList.contains('form-name')){
-                e.target.value = e.target.value.replace(/[^а-яё\s]/ig, '');
-            }
+        const formValid = (name) => {
+            let form = document.getElementById(name);
+            form.addEventListener('input', (e) => {
+                if (e.target.classList.contains('form-phone')) {
+                    e.target.value = e.target.value.replace(/[^+0-9]/ig, '');
+                }
+                if (e.target.classList.contains('form-name')) {
+                    e.target.value = e.target.value.replace(/[^а-яё\s]/ig, '');
+                }
 
-            if (e.target.classList.contains('mess')){
-                e.target.value = e.target.value.replace(/[^а-яё\s]/ig, '');
-            }
-        });
-       };
-       
+                if (e.target.classList.contains('mess')) {
+                    e.target.value = e.target.value.replace(/[^а-яё\s]/ig, '');
+                }
+            });
+        };
+
 
 
         form2.addEventListener('submit', (e) => {
@@ -520,7 +560,7 @@ window.addEventListener('DOMContentLoaded', () => {
             const form2Data = new FormData(form2);
             let body = {};
 
-            form2Data.forEach((val,key) => {
+            form2Data.forEach((val, key) => {
                 body[key] = val;
             });
 
@@ -528,7 +568,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
             postData(body, () => {
                 statusMessage.textContent = successMessage;
-            }, (error) =>{
+            }, (error) => {
                 statusMessage.textContent = errorMessage;
                 console.log(error);
             });
@@ -549,7 +589,7 @@ window.addEventListener('DOMContentLoaded', () => {
             const form3Data = new FormData(form3);
             let body = {};
 
-            form3Data.forEach((val,key) => {
+            form3Data.forEach((val, key) => {
                 body[key] = val;
             });
 
@@ -557,7 +597,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
             postData(body, () => {
                 statusMessage.textContent = successMessage;
-            }, (error) =>{
+            }, (error) => {
                 statusMessage.textContent = errorMessage;
                 console.log(error);
             });
@@ -569,14 +609,14 @@ window.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-       formValid('form1');
-       formValid('form2');
-       formValid('form3');
+        formValid('form1');
+        formValid('form2');
+        formValid('form3');
 
-        const postData = (body, outputData,errorData) => {
+        const postData = (body, outputData, errorData) => {
             const request = new XMLHttpRequest();
             request.addEventListener('readystatechange', () => {
-                if (request.readyState !== 4){
+                if (request.readyState !== 4) {
                     return;
                 }
 
@@ -588,8 +628,8 @@ window.addEventListener('DOMContentLoaded', () => {
                 }
             });
             request.open('POST', './server.php');
-            request.setRequestHeader('Content-Type','application/json');
-            
+            request.setRequestHeader('Content-Type', 'application/json');
+
             request.send(JSON.stringify(body));
         };
     };
