@@ -132,9 +132,13 @@ window.addEventListener('DOMContentLoaded', () => {
         const popupBtn = document.querySelectorAll('.popup-btn');
         const popUpClose = document.querySelector('.popup-close');
         const popupContent = document.querySelector('.popup-content');
+        const popupInputs = document.getElementById('form3').querySelectorAll('input');
 
         popUpClose.addEventListener('click', () => {
             popup.style.display = 'none';
+            popupInputs.forEach((item) =>{
+                item.value = '';
+            });
         });
 
         const showPopup = () => {
@@ -442,7 +446,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const sendForm = () => {
         const errorMessage = `Что то пошло не так...`,
             loadMessage = `Загрузка...`,
-            successMessage = 'Спасибо!, Мы скоро с вами свяжемся!';
+            successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
 
         const form1 = document.getElementById('form1');
         const form2 = document.getElementById('form2');
@@ -464,7 +468,10 @@ window.addEventListener('DOMContentLoaded', () => {
             if (!dynamicStyles) {
                 dynamicStyles = document.createElement('style');
                 dynamicStyles.type = 'text/css';
+                dynamicStyles.classList = 'dinamic-styles';
                 form1.appendChild(dynamicStyles);
+                form2.appendChild(dynamicStyles);
+                form3.appendChild(dynamicStyles);
             }
 
             dynamicStyles.sheet.insertRule(body, dynamicStyles.length);
@@ -491,23 +498,29 @@ window.addEventListener('DOMContentLoaded', () => {
 
             statusMessage.classList = 'sk-rotating-plane';
             statusMessage.style = `
-            width: 6em;
-            height: 6em;
+            width: 4em;
+            height: 4em;
             margin: auto;
-            background-color: #337ab7;
+            background-color: #337ab7; 
             -webkit-animation: sk-rotating-plane 1.2s infinite ease-in-out;
             animation: sk-rotating-plane 1.2s infinite ease-in-out;
         `;
             form1.appendChild(statusMessage);
             const form1Data = new FormData(form1);
             let body = {};
+
             form1Data.forEach((val, key) => {
                 body[key] = val;
             });
+
             postData(body, () => {
                 document.querySelector('style').remove();
                 statusMessage.removeAttribute('style');
                 statusMessage.textContent = successMessage;
+                let interval = setTimeout(() => {
+                    statusMessage.remove();
+                    clearTimeout(interval);
+                },5000);
             }, (error) => {
                 statusMessage.textContent = errorMessage;
                 console.log(error);
@@ -527,8 +540,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 
-            form1Inputs.forEach((item) => {
-                console.log(item);
+            form1Inputs.forEach((item) => {    
                 item.value = '';
             });
 
@@ -539,6 +551,18 @@ window.addEventListener('DOMContentLoaded', () => {
             form.addEventListener('input', (e) => {
                 if (e.target.classList.contains('form-phone')) {
                     e.target.value = e.target.value.replace(/[^+0-9]/ig, '');
+                    if (/^8/ig.test(e.target.value)){
+                        let validPhone = e.target.value.substring(e.target.value.indexOf('8'),e.target.value.length - 1);
+                        if (e.target.value.length > 11){
+                            e.target.value = e.target.value.replace(e.target.value,validPhone);
+                        }
+                    }
+                    else if (/^\+/ig.test(e.target.value)){
+                        let plusPhone = e.target.value.substring(e.target.value.indexOf('+'),e.target.value.length - 1);
+                        if (e.target.value.length > 12){
+                            e.target.value = e.target.value.replace(e.target.value, plusPhone);
+                        }
+                    }
                 }
                 if (e.target.classList.contains('form-name')) {
                     e.target.value = e.target.value.replace(/[^а-яё\s]/ig, '');
@@ -547,6 +571,24 @@ window.addEventListener('DOMContentLoaded', () => {
                 if (e.target.classList.contains('mess')) {
                     e.target.value = e.target.value.replace(/[^а-яё\s]/ig, '');
                 }
+
+                if (e.target.classList.contains('form-email')){
+                    let stringMail = e.target.value.substring(e.target.value.indexOf('@'), e.target.value.length - 1);
+                    
+                    
+                    if (/@[\w\-*+*=*#*$*]{10,}/ig.test(e.target.value)){
+                         e.target.value = e.target.value.replace(/@[\w.\-+=#$*]{10,}/ig, stringMail);
+                    }
+                   
+                
+                    
+                    let stringDomen = e.target.value.substring(e.target.value.lastIndexOf('.'), e.target.value.length-1);
+                    if (/\.{1}\w{5,}/.test(e.target.value)){
+                        e.target.value = e.target.value.replace(/\.{1}\w{6,}/ig, stringDomen);
+                    }
+                    
+                    
+                }
             });
         };
 
@@ -554,8 +596,17 @@ window.addEventListener('DOMContentLoaded', () => {
 
         form2.addEventListener('submit', (e) => {
             e.preventDefault();
+            statusMessage.classList = 'sk-rotating-plane';
+            statusMessage.style = `
+            width: 4em;
+            height: 4em;
+            margin: auto;
+            background-color: #337ab7; 
+            -webkit-animation: sk-rotating-plane 1.2s infinite ease-in-out;
+            animation: sk-rotating-plane 1.2s infinite ease-in-out;
+        `;
             form2.appendChild(statusMessage);
-            statusMessage.textContent = loadMessage;
+            //statusMessage.textContent = loadMessage;
 
             const form2Data = new FormData(form2);
             let body = {};
@@ -564,9 +615,11 @@ window.addEventListener('DOMContentLoaded', () => {
                 body[key] = val;
             });
 
-            console.log(body);
+            
 
             postData(body, () => {
+                document.querySelector('style').remove();
+                statusMessage.removeAttribute('style');
                 statusMessage.textContent = successMessage;
             }, (error) => {
                 statusMessage.textContent = errorMessage;
@@ -575,7 +628,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
             form2Inputs.forEach((item) => {
-                console.log(item);
+                
                 item.value = '';
             });
         });
@@ -583,8 +636,18 @@ window.addEventListener('DOMContentLoaded', () => {
 
         form3.addEventListener('submit', (e) => {
             e.preventDefault();
+            statusMessage.classList = 'sk-rotating-plane';
+            statusMessage.style = `
+            width: 4em;
+            height: 4em;
+            margin: auto;
+            background-color: #337ab7; 
+            -webkit-animation: sk-rotating-plane 1.2s infinite ease-in-out;
+            animation: sk-rotating-plane 1.2s infinite ease-in-out;
+        `;
             form3.appendChild(statusMessage);
-            statusMessage.textContent = loadMessage;
+            statusMessage.style.color = '#ffff';
+           // statusMessage.textContent = loadMessage;
 
             const form3Data = new FormData(form3);
             let body = {};
@@ -593,10 +656,15 @@ window.addEventListener('DOMContentLoaded', () => {
                 body[key] = val;
             });
 
-            console.log(body);
+            
 
             postData(body, () => {
+                document.querySelector('style').remove();
+                statusMessage.removeAttribute('style');
+                statusMessage.style.color = '#ffff';
+                
                 statusMessage.textContent = successMessage;
+               
             }, (error) => {
                 statusMessage.textContent = errorMessage;
                 console.log(error);
@@ -604,9 +672,14 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
             form3Inputs.forEach((item) => {
-                console.log(item);
                 item.value = '';
             });
+
+            let timeout = setTimeout(()=>{
+                document.querySelector('.popup').style.display = 'none';
+                statusMessage.remove();
+                clearTimeout(timeout);
+            },5000);
         });
 
         formValid('form1');
