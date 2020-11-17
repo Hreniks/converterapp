@@ -463,38 +463,28 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 
-        function addAnimation(body) {
+        function addAnimation(body,form) {
             let dynamicStyles = null;
             if (!dynamicStyles) {
                 dynamicStyles = document.createElement('style');
                 dynamicStyles.type = 'text/css';
                 dynamicStyles.classList = 'dinamic-styles';
-                form1.appendChild(dynamicStyles);
-                form2.appendChild(dynamicStyles);
-                form3.appendChild(dynamicStyles);
+                form.appendChild(dynamicStyles);
+                //form2.appendChild(dynamicStyles);
+                //form3.appendChild(dynamicStyles);
             }
 
             dynamicStyles.sheet.insertRule(body, dynamicStyles.length);
         }
 
-        addAnimation(`
-    @keyframes sk-rotating-plane {
-    0% {
-      transform: perspective(120px) rotateX(0deg) rotateY(0deg);
-    }
-    50% {
-      transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
-    }
-    100% {
-      transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
-    }
-  }
-    `);
+      
 
 
 
         form1.addEventListener('submit', (event) => {
             event.preventDefault();
+
+            
 
             statusMessage.classList = 'sk-rotating-plane';
             statusMessage.style = `
@@ -505,6 +495,21 @@ window.addEventListener('DOMContentLoaded', () => {
             -webkit-animation: sk-rotating-plane 1.2s infinite ease-in-out;
             animation: sk-rotating-plane 1.2s infinite ease-in-out;
         `;
+
+        addAnimation(`
+        @keyframes sk-rotating-plane {
+        0% {
+          transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+        }
+        50% {
+          transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+        }
+        100% {
+          transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+        }
+      }
+        `,form1);
+
             form1.appendChild(statusMessage);
             const form1Data = new FormData(form1);
             let body = {};
@@ -514,11 +519,13 @@ window.addEventListener('DOMContentLoaded', () => {
             });
 
             postData(body, () => {
-                document.querySelector('style').remove();
+                document.querySelector('.dinamic-styles').remove();
                 statusMessage.removeAttribute('style');
                 statusMessage.textContent = successMessage;
                 let interval = setTimeout(() => {
+                    statusMessage.classList.remove('sk-rotating-plane');
                     statusMessage.remove();
+                    statusMessage.textContent = '';
                     clearTimeout(interval);
                 },5000);
             }, (error) => {
@@ -605,6 +612,20 @@ window.addEventListener('DOMContentLoaded', () => {
             -webkit-animation: sk-rotating-plane 1.2s infinite ease-in-out;
             animation: sk-rotating-plane 1.2s infinite ease-in-out;
         `;
+        
+        addAnimation(`
+        @keyframes sk-rotating-plane {
+        0% {
+          transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+        }
+        50% {
+          transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+        }
+        100% {
+          transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+        }
+      }
+        `,form2);
             form2.appendChild(statusMessage);
             //statusMessage.textContent = loadMessage;
 
@@ -618,9 +639,15 @@ window.addEventListener('DOMContentLoaded', () => {
             
 
             postData(body, () => {
-                document.querySelector('style').remove();
+                document.querySelector('.dinamic-styles').remove();
                 statusMessage.removeAttribute('style');
                 statusMessage.textContent = successMessage;
+                let interval = setTimeout(() => {
+                    statusMessage.classList.remove('sk-rotating-plane');
+                    statusMessage.remove();
+                    statusMessage.textContent = '';
+                    clearTimeout(interval);
+                },5000);
             }, (error) => {
                 statusMessage.textContent = errorMessage;
                 console.log(error);
@@ -645,8 +672,23 @@ window.addEventListener('DOMContentLoaded', () => {
             -webkit-animation: sk-rotating-plane 1.2s infinite ease-in-out;
             animation: sk-rotating-plane 1.2s infinite ease-in-out;
         `;
+
+        addAnimation(`
+        @keyframes sk-rotating-plane {
+        0% {
+          transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+        }
+        50% {
+          transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+        }
+        100% {
+          transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+        }
+      }
+        `,form3);
+
             form3.appendChild(statusMessage);
-            statusMessage.style.color = '#ffff';
+            
            // statusMessage.textContent = loadMessage;
 
             const form3Data = new FormData(form3);
@@ -659,12 +701,16 @@ window.addEventListener('DOMContentLoaded', () => {
             
 
             postData(body, () => {
-                document.querySelector('style').remove();
+                document.querySelector('.dinamic-styles').remove();
                 statusMessage.removeAttribute('style');
                 statusMessage.style.color = '#ffff';
-                
                 statusMessage.textContent = successMessage;
-               
+                let interval = setTimeout(() => {
+                    statusMessage.classList.remove('sk-rotating-plane');
+                    statusMessage.remove();
+                    statusMessage.textContent = '';
+                    clearTimeout(interval);
+                },5000);
             }, (error) => {
                 statusMessage.textContent = errorMessage;
                 console.log(error);
