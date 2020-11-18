@@ -464,39 +464,62 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
         function addAnimation(body,form) {
-            let dynamicStyles = null;
-            if (!dynamicStyles) {
-                dynamicStyles = document.createElement('style');
-                dynamicStyles.type = 'text/css';
-                dynamicStyles.classList = 'dinamic-styles';
-                form.appendChild(dynamicStyles);
-                //form2.appendChild(dynamicStyles);
-                //form3.appendChild(dynamicStyles);
-            }
-
-            dynamicStyles.sheet.insertRule(body, dynamicStyles.length);
-        }
-
-      
-
-
-
-        form1.addEventListener('submit', (event) => {
-            event.preventDefault();
-
-            
 
             statusMessage.classList = 'sk-rotating-plane';
             statusMessage.style = `
             width: 4em;
-            height: 4em;
+            height: 4em; 
             margin: auto;
             background-color: #337ab7; 
             -webkit-animation: sk-rotating-plane 1.2s infinite ease-in-out;
             animation: sk-rotating-plane 1.2s infinite ease-in-out;
         `;
 
-        addAnimation(`
+            let dynamicStyles = null;
+            if (!dynamicStyles) {
+                dynamicStyles = document.createElement('style');
+                dynamicStyles.type = 'text/css';
+                dynamicStyles.classList = 'dinamic-styles';
+                form.appendChild(dynamicStyles);
+            }
+
+            dynamicStyles.sheet.insertRule(body, dynamicStyles.length);
+
+           
+
+        }
+
+        const hideAnim = () =>{
+            document.querySelector('.dinamic-styles').remove();
+            statusMessage.removeAttribute('style');
+            statusMessage.style.color = '#ffff';
+            statusMessage.textContent = successMessage;
+           
+           
+            let interval = setTimeout(() => {
+                statusMessage.classList.remove('sk-rotating-plane');
+                statusMessage.remove();
+                statusMessage.textContent = '';
+                clearTimeout(interval);
+            },5000);
+        };
+
+
+
+        form1.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+        
+
+            form1.appendChild(statusMessage);
+            const form1Data = new FormData(form1);
+            let body = {};
+
+            form1Data.forEach((val, key) => {
+                body[key] = val;
+            });
+
+             addAnimation(`
         @keyframes sk-rotating-plane {
         0% {
           transform: perspective(120px) rotateX(0deg) rotateY(0deg);
@@ -510,28 +533,10 @@ window.addEventListener('DOMContentLoaded', () => {
       }
         `,form1);
 
-            form1.appendChild(statusMessage);
-            const form1Data = new FormData(form1);
-            let body = {};
-
-            form1Data.forEach((val, key) => {
-                body[key] = val;
-            });
-
-            postData(body, () => {
-                document.querySelector('.dinamic-styles').remove();
-                statusMessage.removeAttribute('style');
-                statusMessage.textContent = successMessage;
-                let interval = setTimeout(() => {
-                    statusMessage.classList.remove('sk-rotating-plane');
-                    statusMessage.remove();
-                    statusMessage.textContent = '';
-                    clearTimeout(interval);
-                },5000);
-            }, (error) => {
-                statusMessage.textContent = errorMessage;
-                console.log(error);
-            });
+        
+            postData(body).then(hideAnim)
+            .catch( 
+                error => console.log(error));
 
             // if (form1.querySelector('.form-phone').value){
             //     let re = /^\d[\d\(\)\ -]{4,14}\d$/;
@@ -603,15 +608,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
         form2.addEventListener('submit', (e) => {
             e.preventDefault();
-            statusMessage.classList = 'sk-rotating-plane';
-            statusMessage.style = `
-            width: 4em;
-            height: 4em;
-            margin: auto;
-            background-color: #337ab7; 
-            -webkit-animation: sk-rotating-plane 1.2s infinite ease-in-out;
-            animation: sk-rotating-plane 1.2s infinite ease-in-out;
-        `;
         
         addAnimation(`
         @keyframes sk-rotating-plane {
@@ -638,24 +634,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
             
 
-            postData(body, () => {
-                document.querySelector('.dinamic-styles').remove();
-                statusMessage.removeAttribute('style');
-                statusMessage.textContent = successMessage;
-                let interval = setTimeout(() => {
-                    statusMessage.classList.remove('sk-rotating-plane');
-                    statusMessage.remove();
-                    statusMessage.textContent = '';
-                    clearTimeout(interval);
-                },5000);
-            }, (error) => {
-                statusMessage.textContent = errorMessage;
-                console.log(error);
-            });
-
+            postData(body).then(hideAnim)
+            .catch( 
+                error => console.log(error));
 
             form2Inputs.forEach((item) => {
-                
                 item.value = '';
             });
         });
@@ -663,15 +646,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
         form3.addEventListener('submit', (e) => {
             e.preventDefault();
-            statusMessage.classList = 'sk-rotating-plane';
-            statusMessage.style = `
-            width: 4em;
-            height: 4em;
-            margin: auto;
-            background-color: #337ab7; 
-            -webkit-animation: sk-rotating-plane 1.2s infinite ease-in-out;
-            animation: sk-rotating-plane 1.2s infinite ease-in-out;
-        `;
 
         addAnimation(`
         @keyframes sk-rotating-plane {
@@ -698,23 +672,11 @@ window.addEventListener('DOMContentLoaded', () => {
                 body[key] = val;
             });
 
-            
+           
 
-            postData(body, () => {
-                document.querySelector('.dinamic-styles').remove();
-                statusMessage.removeAttribute('style');
-                statusMessage.style.color = '#ffff';
-                statusMessage.textContent = successMessage;
-                let interval = setTimeout(() => {
-                    statusMessage.classList.remove('sk-rotating-plane');
-                    statusMessage.remove();
-                    statusMessage.textContent = '';
-                    clearTimeout(interval);
-                },5000);
-            }, (error) => {
-                statusMessage.textContent = errorMessage;
-                console.log(error);
-            });
+            postData(body).then(hideAnim)
+            .catch( 
+                error => console.log(error));
 
 
             form3Inputs.forEach((item) => {
@@ -732,24 +694,26 @@ window.addEventListener('DOMContentLoaded', () => {
         formValid('form2');
         formValid('form3');
 
-        const postData = (body, outputData, errorData) => {
+        const postData = (body) => {
+            return new Promise((resolve,reject) => {
             const request = new XMLHttpRequest();
-            request.addEventListener('readystatechange', () => {
+            request.addEventListener('readystatechange', () => {   
                 if (request.readyState !== 4) {
                     return;
                 }
 
                 if (request.status === 200) {
-                    outputData();
+                    resolve();
                 }
                 else {
-                    errorData(request.status);
+                    reject(request.status);
                 }
             });
             request.open('POST', './server.php');
             request.setRequestHeader('Content-Type', 'application/json');
 
             request.send(JSON.stringify(body));
+            });
         };
     };
     sendForm();
