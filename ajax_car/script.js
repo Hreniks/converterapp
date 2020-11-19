@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
             data.cars.forEach(item => {
                
                 if (item.brand === select.value) {
-                    console.log(item);
+                    
                     const {brand, model, price} = item;
                     output.innerHTML = `Тачка ${brand} ${model} <br>
                     Цена: ${price}$`;
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         
                 request.addEventListener('readystatechange', () => {
-                    console.log(request.status);
+                    
                     if (request.readyState === 4 && request.status === 200) {
                         const data = JSON.parse(request.responseText);
                         resolve(result(data));
