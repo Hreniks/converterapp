@@ -1,0 +1,29 @@
+.input-block{
+    display: flex;
+}
+
+.input-span{
+    font-size: 18px;
+    margin-top: 6px;
+}
+
+.input-rub{
+    padding: 5px;
+   margin-left: 10px;
+    
+}
+
+.input-item{
+    display: block;
+    margin-top: 5px;
+}
+
+.eur-span{
+    display: block;
+    margin-top: 20px;
+}
+
+
+.out-block{
+    margin-top: 20px;
+}
