@@ -534,9 +534,15 @@ window.addEventListener('DOMContentLoaded', () => {
         `,form1);
 
         
-            postData(body).then(hideAnim)
+            postData(body)
+                .then(response => {
+                hideAnim();
+                if (response.status !== 200){
+                    throw new Error('status network not 200');
+                }
+            })
             .catch( 
-                error => console.log(error));
+                error => console.error(error));
 
             // if (form1.querySelector('.form-phone').value){
             //     let re = /^\d[\d\(\)\ -]{4,14}\d$/;
@@ -634,9 +640,15 @@ window.addEventListener('DOMContentLoaded', () => {
 
             
 
-            postData(body).then(hideAnim)
-            .catch( 
-                error => console.log(error));
+            postData(body)
+            .then(response => {
+            hideAnim();
+            if (response.status !== 200){
+                throw new Error('status network not 200');
+            }
+        })
+        .catch( 
+            error => console.error(error));
 
             form2Inputs.forEach((item) => {
                 item.value = '';
@@ -674,9 +686,15 @@ window.addEventListener('DOMContentLoaded', () => {
 
            
 
-            postData(body).then(hideAnim)
+            postData(body)
+                .then(response => {
+                hideAnim();
+                if (response.status !== 200){
+                    throw new Error('status network not 200');
+                }
+            })
             .catch( 
-                error => console.log(error));
+                error => console.error(error));
 
 
             form3Inputs.forEach((item) => {
@@ -695,25 +713,34 @@ window.addEventListener('DOMContentLoaded', () => {
         formValid('form3');
 
         const postData = (body) => {
-            return new Promise((resolve,reject) => {
-            const request = new XMLHttpRequest();
-            request.addEventListener('readystatechange', () => {   
-                if (request.readyState !== 4) {
-                    return;
-                }
 
-                if (request.status === 200) {
-                    resolve();
-                }
-                else {
-                    reject(request.status);
-                }
+            return  fetch('./server.php',{
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(body)
             });
-            request.open('POST', './server.php');
-            request.setRequestHeader('Content-Type', 'application/json');
 
-            request.send(JSON.stringify(body));
-            });
+            // return new Promise((resolve,reject) => {
+            // const request = new XMLHttpRequest();
+            // request.addEventListener('readystatechange', () => {   
+            //     if (request.readyState !== 4) {
+            //         return;
+            //     }
+
+            //     if (request.status === 200) {
+            //         resolve();
+            //     }
+            //     else {
+            //         reject(request.status);
+            //     }
+            // });
+            // request.open('POST', './server.php');
+            // request.setRequestHeader('Content-Type', 'application/json');
+
+            // request.send(JSON.stringify(body));
+            // });
         };
     };
     sendForm();
