@@ -6,10 +6,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const result = (data) =>{
             data.cars.forEach(item => {
+               
                 if (item.brand === select.value) {
+                    console.log(item);
                     const {brand, model, price} = item;
                     output.innerHTML = `Тачка ${brand} ${model} <br>
                     Цена: ${price}$`;
+                }
+                else if (select.value === 'no'){
+                    output.textContent = `выбери тачку`;
                 }
             });
         };
